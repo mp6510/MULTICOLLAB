@@ -1,21 +1,39 @@
 #  MULTICOLLAB
-MULTICOLLAB is a novel multimodal corpus for affective computing. This IRB-approved study was collected from 48 subjects, forming 24 builder and instructor pairs. Through a Zoom call, the instructor guided the builder through two tasks. This processed dataset consists of the instructor's facial features, eye tracking features, galvanic skin resposne, audio features, and manually verified transcipts surrounding the instances of annotation. All values are Z-Score normalized per modality. The annotations were provided by the instructor using a web-based online tool. See the [full paper here](https://aclanthology.org/2024.lrec-main.1023.pdf).
+MULTICOLLAB is a novel multimodal corpus for affective computing. This IRB-approved study was collected from 48 subjects, forming 24 builder and instructor pairs. Through a Zoom call, the instructor guided the builder through two tasks. This processed dataset consists of the instructor's facial features, eye tracking features, galvanic skin resposne, audio features, and manually verified transcipts surrounding the instances of annotation. All values are z-Score normalized per modality. The annotations were provided by the instructor using a web-based online tool. See the [full paper here](https://aclanthology.org/2024.lrec-main.1023.pdf).
 
 ## Dataset Description
 ### File Structure
-We provide files X and Y tsv files while varying time window and time steps. Remember to to use the same X and y value that have the same time window and time steps in the filename.
+We provide files X and Y tsv files while varying time window and time steps. When using this data for modeling, use the same X and y time window listed in the filename.
 
 ### Video Sample
 ![Video](./sample.png)
 [Watch it here](https://vimeo.com/839024815)
 
 ### Details
-Each file has a corresponding README with details of each modality.
+Each X file specifies a time window and the time dimension from the instructor's self annotated instance of frustration. The columns are labeled `m1, m2, ..., m12` and correspond to the following z-score normalized features:
+```
+——— Modality Labels ———
+m1 = Brow Furrow
+m2 = Chin Raise
+m3 = Lip Corner Depressor
+m4 = Lid Tighten
+m5 = Gaze Velocity
+m6 = Fixation Duration
+m7 = Fixation Dispersion
+m8 = Saccade Duration
+m9 = Saccade Peak Velocity
+m10 = GSR Conductance CAL
+m11 = Intensity_dB
+m12 = F0_Hz
+```
+Additionally, each column also includes a time step per modality, denoated as `m1_t1, m2_t1, ..., m12_tn` where `n = time dimension`. For example, a file named `X_1500milli_5dim.tsv` contains the z-score normalized sensor values within a 1500 millisecond time window from annotation, split up into 5 timesteps. Therefore, it will contain 60 columns (12 modalities x 5 time steps), or `m1_t1, m2_t1, ..., m12_t5`.
+
+Instructor utterance word tokens can be found in the corresponding Y file in the `Utterance` column. For example, Tt find the words the instructor uttered in a 15000 millisecond time window from when they rated their level of frustration, see the `Utterance` column in the file `Y_1500milli.tsv`.
 
 ## Disclaimer and License
 This dataset is licensed under the <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License (CC-BY-NC-4.0)</a> and subject to [DISCLAIMER](DISCLAIMER.txt). 
 
-## Citation
+## BibTeX Citation
 ```
 @inproceedings{peechatt-etal-2024-multicollab-multimodal,
     title = "{MULTICOLLAB}: A Multimodal Corpus of Dialogues for Analyzing Collaboration and Frustration in Language",
